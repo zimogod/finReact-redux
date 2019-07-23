@@ -1,0 +1,238 @@
+react讲解：
+    MVVM模式的前端框架，也是偏向于view(UI)层 
+    刚开始react是UI框架   bs ele iview easy-UI  ionic 
+    redux  管理数据  vuex 一样
+
+
+react 才是个MVVM框架 
+
+优点：
+    1、声明式设计    
+    2、虚拟DOM              
+        记住：虚拟DOM加载比真实DOM更费时 
+    3、jsx语法              
+        home.jsx  home.js  
+        js的扩展  执行更快  效率高   不易出现错误
+    4、灵活     
+        可以和任何的框架配合使用  
+        vue bs ele ionic jq 
+        axios
+    5、组件化           一切皆组件
+    6、单向数据流  
+        数据永远从上到下  
+
+缺点：
+    1、上手难，开发成本高    all in js    
+    2、用了数据管理redux之后，页面逻辑变得复杂，不易阅读
+
+npm install vuex -S    --save最终要发布到线上的插件 
+-S或者--save会把插件下载到 dependencies里面，是代表要发布到线上
+
+npm install less --save-dev   将插件下载到本地  辅助你开发项目，但是此插件不上线 
+-D或者--save-dev 会将插件下载到 devDependencies里面，不上线，辅助你开发
+
+install 简称i  
+
+react:
+    1、会写页面就可以  
+redux：
+    store  -> state
+    reducer -> mutations
+    action  -> actions 
+react-redux:
+    privider
+    connect
+react-router-dom:
+    路由，嵌套路由
+
+和react配合使用的UI框架：
+    react + antd    配合使用比较好
+     
+react-router:  2.0
+    是react2.0路由的路由库，只能将路由进行统一管理，API是2.0路由的  
+react-router-dom:   4.0之后   常用
+    是react4.0路由的路由库，你可以把路由分别写在组件内，也可以写在统一管理的文件内
+react-router:   4.0
+    是react4.0路由的路由库，可以写在统一管理的文件内,API是4.0路由的   
+
+今晚作业：
+    1、整理this.props.children
+    2、实现贝思客页面路由跳转     电子版
+    3、整理ES5中继承的方式有哪些？并写出优缺点
+
+
+    4.0路由：
+        BrowserRouter   www.zimogod.com/index/income     浏览器正常路由跳转
+        HashRouter      www.zimogod.com/#/index/income   浏览器hash跳转  锚点跳转
+        Route           路由容器组件 
+        Link            路由导航组件
+        Switch          单一路由容器组件   显示哪个组件，就加载哪个组件，其他组件一律不加载
+        Redirect        路由重定向  有两个属性，from:从哪里来  to：到哪里去
+
+        react中，路由传参：
+            query，hash值不参与路由跳转，只是跳转时携带的数据信息而已，也就是说 ？ #之后的路径不参与跳转
+            react中query是默认隐藏的，url地址栏不可见
+        
+        match:是路由匹配的对象，是路由的匹配规则   
+
+        exact:是路由的精确匹配
+        localhost:8080/
+        localhost:8080/index
+        Route:
+            path: 可选属性，路径属性，用于你跳转，url地址栏显示路径的作用
+            component：必须属性，才是正真的将你跳转的路径导向到你跳转的那个组件
+
+        url地址栏里面，#，？后面不是真正的路径，不参与路由的跳转，只是页面之间传递参数
+
+        props：react中，所有的数据，属性都会保存在props里面，
+               要想得到数据，必须去props里面找
+            
+        params：获取  this.props.match.params.id 
+        query:  获取  this.props.location.query.name 
+        state:  获取  this.props.location.state.name  
+
+    2.0路由：
+
+        <Router history={history}>
+            <Admin></Admin>
+        </Router> 
+        Router      路由包裹容器
+        IndexRoute  默显示内容认路由
+        Link        路由导航组件  
+        NavLink     路由导航组件  
+        HashHistory Router组件的必传属性，以hash跳转
+        Redirect    重定向，可以导向到指定组件
+        Route       路由组件  可嵌套 
+
+        <Router>
+            <IndexRoute component={Home} />
+            <Route path="/index" component={Index} />
+            <Route path="/come" component={Come} />  
+            <Route path="/index" component={Index}>
+                <IndexRoute component={page1} />
+                <Route path="/page1" component={page1} />
+                <Route path="/page2" component={page2}>
+                    <Route path="/page1" component={page1} />
+                </Route>  
+            </Route> 
+        </Router>
+
+redux:讲解：
+    项目中有没有redux都可以，都能正常开发项目
+ 
+    1、store 
+        是redux的核心，是数据仓库，存放公共数据的仓库，store将数据分发到视图层
+        store接收三个参数
+            第一个是reducer，处理之后的reducer，或者默认的reducer
+            第二个参数是initialState,视图加载的时候，默认展示在页面上的初始化数据  可选参数
+            第三个参数是中间件，为了处理异步代码而来的第三方插件 
+
+    2、reducer 
+        是逻辑处理中心，是纯函数，必须有返回值，没有处理时，必须返回原有的数据，
+        是同步操作，不处理其他业务，可以有多个reducer，最后可以合并为一个reducer
+        接收两个参数
+            第一个参数：接收的是默认数据  
+            第二个参数：接收的是action派发过来的事件类型  ADD_NUM  DELETE_USER  ADD_USER
+
+        纯函数：输入什么，就输出什么如：输入的是数组，返回的必须是数组，必须有返回值，必须是同步操作，
+                只处理数据，不适合其他任何程序           
+
+    3、action 
+        是异步操作，从在于视图层，进行派发事件类型 dispatch派发的意思  
+
+react-redux讲解:
+    Provider:是管理react项目的最大数据管理容器，将store数据以属性的方式注入，然后管理者所有
+             redux数据
+    connect：是一个高阶组件，参数接受一个组件，返回一个新组件，这样的函数叫做高阶组件函数
+            目前为止 connect，反馈redux信息给store仓库
+    
+    connect(数据，方法)(组件)
+
+Object.assign():
+    此方法是将另外的对象或者数据，拷贝到一个新的对象内，新的对象必须是空的
+
+今晚作业：
+    1、整理redux知识点
+    2、整理react-redux知识点  
+    3、整理vuex知识点
+    4、整理js事件循环   
+    5、完成redux中num为100的加减操作   电子版
+
+applyMiddleware:叫做中间件，处理异步数据的中间件，属于redux的API；必须放在store的最后面
+redux-thunk:是真正的中间件，可以处理异步请求，异步操作，必须放在applyMiddleware的最后一个参数
+redux-devtools-extension:开发者工具，没什么用，但是可以在打印台进行调试redux代码
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+组件内：                        vuex：
+    data(){                     
+        return {                state
+
+        }
+    }
+
+computed                        getters 
+生命周期                         mutations   
+methods                         action   
+嵌套组件                         modules  
+
+new Vuex.Store({
+    state,
+    mutations,
+    action,
+    modules
+})
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
